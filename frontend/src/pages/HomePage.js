@@ -10,7 +10,7 @@ function HomePage() {
   ];
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="container">
       <h1>Blog Posts</h1>
       <PostList posts={posts} />
     </div>
