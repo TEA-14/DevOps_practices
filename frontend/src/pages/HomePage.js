@@ -1,20 +1,23 @@
-import React from 'react'
-import PostList from '../components/PostList'
+import { useEffect, useState } from "react";
+import axios from "axios";
+import PostList from "../components/PostList";
 
 function HomePage() {
-  // Dummy data for now
-  const posts = [
-    { id: 1, title: "First Blog Post", content: "This is my first post" },
-    { id: 2, title: "Second Blog Post", content: "This is my second post" },
-    { id: 3, title: "Third Blog Post", content: "This is my third post" },
-  ];
+  const API_URL = process.env.REACT_APP_API_URL;
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+  fetch(`${API_URL}/api/posts`)
+    .then(res => res.json())
+    .then(data => setPosts(data));
+}, []);
 
   return (
     <div className="container">
-      <h1>Blog Posts</h1>
+      <h1>Home Page</h1>
       <PostList posts={posts} />
     </div>
   );
 }
 
-export default HomePage
+export default HomePage;

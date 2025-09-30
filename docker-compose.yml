@@ -1,0 +1,17 @@
+services:
+  backend:
+    image: tea1408/blog-backend:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+
+  frontend:
+    image: tea1408/blog-frontend:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_API_URL=http://backend:5000
+    depends_on:
+      - backend

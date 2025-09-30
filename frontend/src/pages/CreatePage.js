@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import "./CreatePage.css";
 
 function CreatePage({ onAddPost }) {
@@ -9,15 +10,13 @@ function CreatePage({ onAddPost }) {
     e.preventDefault();
     if (!title.trim() || !content.trim()) return;
 
-    const newPost = {
-      id: Date.now(),
-      title,
-      content,
-    };
-
-    onAddPost(newPost);
-    setTitle("");
-    setContent("");
+    axios.post("http://localhost:5000/api/posts", { title, content })
+      .then(res => {
+        onAddPost(res.data); // update UI immediately
+        setTitle("");
+        setContent("");
+      })
+      .catch(err => console.error("Error creating post:", err));
   };
 
   return (
